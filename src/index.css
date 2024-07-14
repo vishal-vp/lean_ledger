@@ -69,3 +69,13 @@ button:focus-visible {
 #root {
   width: 100%;
 }
+
+html,
+body,
+#root {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}

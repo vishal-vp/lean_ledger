@@ -1,0 +1,14 @@
+.mainLayout {
+  padding: 1rem;
+  height: 91vh;
+  overflow: hidden;
+  display: flex;
+  gap: 0.8rem;
+
+  .sidePanel {
+    width: 33%;
+  }
+  .mainPanel {
+    width: 67%;
+  }
+}
