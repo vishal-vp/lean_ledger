@@ -1,4 +1,5 @@
 import { AccountsSummary } from "../Accounts/AccountsSummary";
+import { CategoriesAndGoals } from "../CategoriesAndGoals";
 import { Panel } from "../Panel";
 import styles from "./index.module.scss";
 
@@ -7,6 +8,7 @@ export const MainLayout = () => {
     <div className={styles.mainLayout}>
       <Panel className={styles.sidePanel}>
         <AccountsSummary />
+        <CategoriesAndGoals />
       </Panel>
       <Panel className={styles.mainPanel}>
         {Array(55)
