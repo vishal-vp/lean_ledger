@@ -1,8 +1,10 @@
 import { accountBalanceAtom } from "@/atoms/accounts";
-import { Form, Input, InputNumber, Modal, message } from "antd";
+import { Form, Modal, message } from "antd";
 import { useAtom } from "jotai";
 
 import styles from "./index.module.scss";
+import { FORM_ERROR_MESSAGES } from "@/utils/constants";
+import { CurrencyInput } from "@/components/CurrencyInput";
 
 export const AccountBalanceEditModal = ({ isModalOpen, onClose }) => {
   const [form] = Form.useForm();
@@ -15,9 +17,7 @@ export const AccountBalanceEditModal = ({ isModalOpen, onClose }) => {
       setAccountBalance(Number(values?.balance));
       handleClose();
     } catch {
-      message.error(
-        "Error saving the data. Please check the form and try again!"
-      );
+      message.error(FORM_ERROR_MESSAGES.FORM_VALIDATION_ERROR);
     }
   }
 
@@ -38,8 +38,8 @@ export const AccountBalanceEditModal = ({ isModalOpen, onClose }) => {
         initialValues={{ balance: accountBalance }}
         className={styles.accountBalanceEditForm}
       >
-        <Form.Item name="balance">
-          <InputNumber prefix="₹" className={styles.balanceInput} />
+        <Form.Item name="balance" rules={[{ required: true }]}>
+          <CurrencyInput />
         </Form.Item>
       </Form>
     </Modal>
