@@ -22,11 +22,8 @@ export const CategoriesAndGoalsListing = ({ title }) => {
           actionButtons={[
             <Button icon={<EditOutlined />} />,
             <Button
-              icon={
-                <PlusOutlined
-                  onClick={() => setIsAddCategoryModalVisible(true)}
-                />
-              }
+              onClick={() => setIsAddCategoryModalVisible(true)}
+              icon={<PlusOutlined />}
             />,
           ]}
         />

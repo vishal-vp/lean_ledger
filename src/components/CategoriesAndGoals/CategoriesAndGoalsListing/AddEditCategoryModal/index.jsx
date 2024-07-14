@@ -5,7 +5,11 @@ import { Form, Input, Modal, Radio, message } from "antd";
 import { useSetAtom } from "jotai";
 import { nanoid } from "nanoid";
 
-export const AddEditCategoryModal = ({ isOpen, onClose }) => {
+export const AddEditCategoryModal = ({
+  isOpen,
+  onClose,
+  categoryBeingEdited,
+}) => {
   const [form] = Form.useForm();
   const setCategories = useSetAtom(categoriesAtom);
 
@@ -18,13 +22,28 @@ export const AddEditCategoryModal = ({ isOpen, onClose }) => {
     try {
       await form.validateFields();
       const values = form.getFieldsValue();
-      setCategories((existingCategories) => [
-        ...existingCategories,
-        {
-          id: nanoid(),
-          ...values,
-        },
-      ]);
+      if (categoryBeingEdited) {
+        setCategories((existingCategories) => [
+          ...existingCategories?.filter(
+            ({ id }) => id !== categoryBeingEdited?.id
+          ),
+          {
+            ...existingCategories?.find(
+              ({ id }) => id === categoryBeingEdited?.id
+            ),
+            ...values,
+          },
+        ]);
+      } else {
+        setCategories((existingCategories) => [
+          ...existingCategories,
+          {
+            id: nanoid(),
+            createdAt: new Date().toISOString(),
+            ...values,
+          },
+        ]);
+      }
       onClose();
     } catch {
       message.error(FORM_ERROR_MESSAGES.FORM_VALIDATION_ERROR);
@@ -38,7 +57,10 @@ export const AddEditCategoryModal = ({ isOpen, onClose }) => {
       onClose={handleClose}
       onOk={handleSubmit}
     >
-      <Form form={form}>
+      <Form
+        form={form}
+        initialValues={categoryBeingEdited && { ...categoryBeingEdited }}
+      >
         <Form.Item label="Name" name="name" rules={[{ required: true }]}>
           <Input />
         </Form.Item>

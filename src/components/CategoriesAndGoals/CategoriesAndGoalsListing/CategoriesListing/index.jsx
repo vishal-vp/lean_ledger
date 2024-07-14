@@ -5,6 +5,8 @@ import { Button, Popconfirm } from "antd";
 import styles from "./index.module.scss";
 import { useSetAtom } from "jotai";
 import { categoriesAtom } from "@/atoms/categories";
+import { AddEditCategoryModal } from "../AddEditCategoryModal";
+import { useState } from "react";
 
 const DeleteButton = ({ onDelete }) => {
   return (
@@ -20,6 +22,9 @@ const DeleteButton = ({ onDelete }) => {
 
 export const CategoriesListing = ({ categories }) => {
   const setCategories = useSetAtom(categoriesAtom);
+  const [categoryBeingEdited, setCategoryBeingEdited] = useState();
+  const [isEditCategoryModalVisible, setIsEditCategoryModalVisible] =
+    useState(false);
 
   function handleDeleteCategory(deletedCategoryId) {
     setCategories((existingCategories) => {
@@ -28,19 +33,50 @@ export const CategoriesListing = ({ categories }) => {
   }
 
   return (
-    <div className={styles.categoriesListing}>
-      {categories?.map((category) => (
-        <ProgressIndicator
-          key={category.id}
-          value={category.amountPending}
-          target={category.budgetAmount}
-          name={category.name}
-          actionButtons={[
-            <Button size="small" icon={<EditOutlined />} />,
-            <DeleteButton onDelete={() => handleDeleteCategory(category.id)} />,
-          ]}
+    <>
+      <div className={styles.categoriesListing}>
+        {categories
+          ?.sort((a, b) => {
+            console.log(
+              a,
+              b,
+              new Date(a.createdAt) - new Date(b.createdAt),
+              "DIFF>>>"
+            );
+            return new Date(a.createdAt) - new Date(b.createdAt);
+          })
+          ?.map((category) => (
+            <ProgressIndicator
+              key={category.id}
+              value={category.amountPending}
+              target={category.budgetAmount}
+              name={category.name}
+              actionButtons={[
+                <Button
+                  size="small"
+                  onClick={() => {
+                    setIsEditCategoryModalVisible(true);
+                    setCategoryBeingEdited(category);
+                  }}
+                  icon={<EditOutlined />}
+                />,
+                <DeleteButton
+                  onDelete={() => handleDeleteCategory(category.id)}
+                />,
+              ]}
+            />
+          ))}
+      </div>
+      {isEditCategoryModalVisible && (
+        <AddEditCategoryModal
+          onClose={() => {
+            setIsEditCategoryModalVisible(false);
+            setCategoryBeingEdited(undefined);
+          }}
+          isOpen={isEditCategoryModalVisible}
+          categoryBeingEdited={categoryBeingEdited}
         />
-      ))}
-    </div>
+      )}
+    </>
   );
 };
