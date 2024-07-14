@@ -1,16 +1,16 @@
-import { ProgressIndicator } from "@/components/ProgressIndicator";
 import { SectionHeading } from "@/components/SectionHeading";
 import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 
 import styles from "./index.module.scss";
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import { categoriesAtom } from "@/atoms/categories";
 import { useState } from "react";
 import { AddEditCategoryModal } from "./AddEditCategoryModal";
+import { CategoriesListing } from "./CategoriesListing";
 
 export const CategoriesAndGoalsListing = ({ title }) => {
-  const [categories, setCategories] = useAtom(categoriesAtom);
+  const categories = useAtomValue(categoriesAtom);
   const [isAddCategoryModalVisible, setIsAddCategoryModalVisible] =
     useState(false);
 
@@ -30,16 +30,7 @@ export const CategoriesAndGoalsListing = ({ title }) => {
             />,
           ]}
         />
-        <div className={styles.progressListing}>
-          {categories?.map((category) => (
-            <ProgressIndicator
-              key={category.id}
-              value={category.amountPending}
-              target={category.budgetAmount}
-              name={category.name}
-            />
-          ))}
-        </div>
+        <CategoriesListing categories={categories} />
       </div>
       <AddEditCategoryModal
         isOpen={isAddCategoryModalVisible}

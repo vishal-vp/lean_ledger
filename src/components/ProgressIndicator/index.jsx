@@ -2,7 +2,12 @@ import { Progress } from "antd";
 
 import styles from "./index.module.scss";
 
-export const ProgressIndicator = ({ name, value = 0, target }) => {
+export const ProgressIndicator = ({
+  name,
+  value = 0,
+  target,
+  actionButtons,
+}) => {
   const progressPercentage = (value / target) * 100;
   let strokeColor;
   if (progressPercentage > 75) {
@@ -21,7 +26,10 @@ export const ProgressIndicator = ({ name, value = 0, target }) => {
     <div>
       <div className={styles.progressIndicatorInfo}>
         <span>{name}</span>
-        <span>{target}</span>
+        <div className={styles.targetAndActionButtonsContainer}>
+          <span>{target}</span>
+          <div className={styles.actionButtonsContainer}>{actionButtons}</div>
+        </div>
       </div>
       <Progress
         title={value}
