@@ -1,0 +1,16 @@
+.sectionHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  :global {
+    h4 {
+      margin: 0 0.3rem;
+    }
+  }
+  .actionButtonsContainer {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+  }
+}
