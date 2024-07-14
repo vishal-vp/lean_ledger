@@ -29,10 +29,12 @@ export const CategoriesAndGoalsListing = ({ title }) => {
         />
         <CategoriesListing categories={categories} />
       </div>
-      <AddEditCategoryModal
-        isOpen={isAddCategoryModalVisible}
-        onClose={() => setIsAddCategoryModalVisible(false)}
-      />
+      {isAddCategoryModalVisible && (
+        <AddEditCategoryModal
+          isOpen={isAddCategoryModalVisible}
+          onClose={() => setIsAddCategoryModalVisible(false)}
+        />
+      )}
     </>
   );
 };
