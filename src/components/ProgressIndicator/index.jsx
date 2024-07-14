@@ -14,6 +14,8 @@ export const ProgressIndicator = ({ name, value, target }) => {
   } else {
     strokeColor = "red";
   }
+  const isProgressAtLowerExtreme = progressPercentage <= 0;
+  const isProgressAtUpperExtreme = progressPercentage >= 100;
 
   return (
     <div>
@@ -22,7 +24,8 @@ export const ProgressIndicator = ({ name, value, target }) => {
         <span>{value}</span>
       </div>
       <Progress
-        showInfo={false}
+        showInfo={isProgressAtLowerExtreme || isProgressAtUpperExtreme}
+        status={isProgressAtLowerExtreme ? "exception" : "success"}
         percent={progressPercentage}
         strokeColor={strokeColor}
         size={{ height: 5 }}

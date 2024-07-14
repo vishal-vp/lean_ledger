@@ -4,8 +4,12 @@ import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 
 import styles from "./index.module.scss";
+import { useAtom } from "jotai";
+import { categoriesAtom } from "@/atoms/categories";
 
 export const CategoriesAndGoalsListing = ({ title }) => {
+  const [categories, setCategories] = useAtom(categoriesAtom);
+
   return (
     <div className={styles.categoriesAndGoalsListing}>
       <SectionHeading
@@ -16,11 +20,13 @@ export const CategoriesAndGoalsListing = ({ title }) => {
         ]}
       />
       <div className={styles.progressListing}>
-        {Array(50)
-          .fill(1)
-          .map(() => (
-            <ProgressIndicator value={86} target={100} name={"Grocery"} />
-          ))}
+        {categories?.map((category) => (
+          <ProgressIndicator
+            value={category.amountPending}
+            target={category.budgetAmount}
+            name={category.name}
+          />
+        ))}
       </div>
     </div>
   );
