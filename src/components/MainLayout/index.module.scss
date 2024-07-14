@@ -10,5 +10,20 @@
   }
   .mainPanel {
     width: 67%;
+
+    :global {
+      .ant-table-wrapper {
+        height: 92%;
+      }
+      .ant-spin-nested-loading,
+      .ant-spin-container {
+        height: 100%;
+        overflow: hidden;
+      }
+      .ant-table {
+        height: 85%;
+        overflow: auto;
+      }
+    }
   }
 }

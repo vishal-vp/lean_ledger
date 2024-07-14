@@ -1,6 +1,7 @@
 import { AccountsSummary } from "../Accounts/AccountsSummary";
 import { CategoriesAndGoals } from "../CategoriesAndGoals";
 import { Panel } from "../Panel";
+import { Transactions } from "../Transactions";
 import styles from "./index.module.scss";
 
 export const MainLayout = () => {
@@ -11,11 +12,7 @@ export const MainLayout = () => {
         <CategoriesAndGoals />
       </Panel>
       <Panel className={styles.mainPanel}>
-        {Array(55)
-          .fill(1)
-          .map(() => (
-            <div>HELLO WORLD</div>
-          ))}
+        <Transactions />
       </Panel>
     </div>
   );
