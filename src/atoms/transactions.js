@@ -5,7 +5,7 @@ import { nanoid } from "nanoid";
 export const transactionsAtom = atom([
   {
     id: nanoid(),
-    amount: 100,
+    amount: 1000,
     createdAt: "2024-01-01T10:00:00.000Z",
     type: TRANSACTION_TYPES.INCOME,
     description: "Salary",
@@ -58,4 +58,15 @@ const sortByKey = (array, key, isAscending = true) => {
 export const sortedTransactionsAtom = atom((get) => {
   const transactions = get(transactionsAtom);
   return sortByKey(transactions, "createdAt", false);
+});
+
+export const totalBalanceAtom = atom((get) => {
+  const transactions = get(transactionsAtom);
+  return transactions?.reduce((total, transaction) => {
+    if (transaction?.type === TRANSACTION_TYPES.INCOME) {
+      return total + transaction?.amount;
+    } else {
+      return total - transaction?.amount;
+    }
+  }, 0);
 });

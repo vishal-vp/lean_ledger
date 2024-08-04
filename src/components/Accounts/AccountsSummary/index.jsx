@@ -1,42 +1,17 @@
-import {
-  accountBalanceAtom,
-  formattedAccountBalanceAtom,
-} from "@/atoms/accounts";
 import { SectionHeading } from "@/components/SectionHeading";
-import { EditOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button } from "antd";
 import { useAtomValue } from "jotai";
-import { AccountBalanceEditModal } from "./AccountBalanceEditModal";
-import { useState } from "react";
+import { totalBalanceAtom } from "@/atoms/transactions";
+import { CURRENCY_SYMBOL } from "@/utils/constants";
 
 export const AccountsSummary = () => {
-  const balance = useAtomValue(formattedAccountBalanceAtom);
-  const [isAccountBalanceEditModalOpen, setIsAccountBalanceEditModalOpen] =
-    useState(false);
+  const totalBalance = useAtomValue(totalBalanceAtom);
 
   return (
     <>
       <SectionHeading
         title={"Balance"}
-        value={balance}
-        actionButtons={[
-          <Button
-            title="Edit Total Balance"
-            key="Edit Total Balance"
-            icon={
-              <EditOutlined
-                onClick={() => setIsAccountBalanceEditModalOpen(true)}
-              />
-            }
-          />,
-        ]}
+        value={`${CURRENCY_SYMBOL} ${totalBalance}`}
       />
-      {isAccountBalanceEditModalOpen && (
-        <AccountBalanceEditModal
-          isModalOpen={isAccountBalanceEditModalOpen}
-          onClose={() => setIsAccountBalanceEditModalOpen(false)}
-        />
-      )}
     </>
   );
 };
