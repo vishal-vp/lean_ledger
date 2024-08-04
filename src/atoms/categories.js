@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 
 export const categoriesAtom = atom([
   {
-    id: nanoid(),
+    id: "1",
     name: "Grocery",
     budgetAmount: 100,
     type: CATEGORY_TYPES.MONTHLY,
@@ -12,7 +12,7 @@ export const categoriesAtom = atom([
     createdAt: "2024-01-01T10:00:00.000Z",
   },
   {
-    id: nanoid(),
+    id: "2",
     name: "Medical",
     budgetAmount: 50,
     type: CATEGORY_TYPES.MONTHLY,

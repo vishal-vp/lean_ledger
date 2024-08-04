@@ -31,6 +31,7 @@ export const CategoriesAndGoalsListing = ({ title }) => {
           actionButtons={[
             <Popconfirm
               title="Refill categories?"
+              key="Allocate Budget"
               onConfirm={() =>
                 setCategories((existingCategories) =>
                   refillCategories(existingCategories)
@@ -44,6 +45,7 @@ export const CategoriesAndGoalsListing = ({ title }) => {
             </Popconfirm>,
             <Button
               title="Add New Category"
+              key="Add New Category"
               onClick={() => setIsAddCategoryModalVisible(true)}
               icon={<PlusOutlined />}
             />,

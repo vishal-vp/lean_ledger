@@ -7,3 +7,8 @@ export const CATEGORY_TYPES = {
   MONTHLY: "Monthly",
   YEARLY: "Yearly",
 };
+
+export const TRANSACTION_TYPES = {
+  INCOME: "Income",
+  EXPENSE: "Expense",
+};

@@ -52,9 +52,13 @@ export const CategoriesListing = ({ categories }) => {
                     setIsEditCategoryModalVisible(true);
                     setCategoryBeingEdited(category);
                   }}
+                  title="Edit Category"
+                  key="Edit Category"
                   icon={<EditOutlined />}
                 />,
                 <DeleteButton
+                  title="Delete Category"
+                  key="Delete Category"
                   onDelete={() => handleDeleteCategory(category.id)}
                 />,
               ]}
