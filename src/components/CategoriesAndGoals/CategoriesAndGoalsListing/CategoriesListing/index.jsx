@@ -37,12 +37,6 @@ export const CategoriesListing = ({ categories }) => {
       <div className={styles.categoriesListing}>
         {categories
           ?.sort((a, b) => {
-            console.log(
-              a,
-              b,
-              new Date(a.createdAt) - new Date(b.createdAt),
-              "DIFF>>>"
-            );
             return new Date(a.createdAt) - new Date(b.createdAt);
           })
           ?.map((category) => (

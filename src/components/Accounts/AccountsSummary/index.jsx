@@ -21,6 +21,7 @@ export const AccountsSummary = () => {
         value={balance}
         actionButtons={[
           <Button
+            title="Edit Total Balance"
             icon={
               <EditOutlined
                 onClick={() => setIsAccountBalanceEditModalOpen(true)}
