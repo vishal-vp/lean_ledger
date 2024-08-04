@@ -32,7 +32,7 @@ export const ProgressIndicator = ({
         </div>
       </div>
       <Progress
-        title={value}
+        title={`${value}/${target}`}
         showInfo={isProgressAtLowerExtreme || isProgressAtUpperExtreme}
         status={isProgressAtLowerExtreme ? "exception" : "success"}
         percent={progressPercentage}
