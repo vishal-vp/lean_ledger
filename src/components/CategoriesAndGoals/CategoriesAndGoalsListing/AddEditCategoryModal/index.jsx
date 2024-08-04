@@ -50,6 +50,11 @@ export const AddEditCategoryModal = ({
     }
   }
 
+  let initialValues = { amountPending: 0 };
+  if (categoryBeingEdited) {
+    initialValues = { ...categoryBeingEdited };
+  }
+
   return (
     <Modal
       open={isOpen}
@@ -57,16 +62,20 @@ export const AddEditCategoryModal = ({
       onClose={handleClose}
       onOk={handleSubmit}
     >
-      <Form
-        form={form}
-        initialValues={categoryBeingEdited && { ...categoryBeingEdited }}
-      >
+      <Form form={form} initialValues={initialValues}>
         <Form.Item label="Name" name="name" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
         <Form.Item
           label="Budget"
           name="budgetAmount"
+          rules={[{ required: true }]}
+        >
+          <CurrencyInput />
+        </Form.Item>
+        <Form.Item
+          label="Balance"
+          name="amountPending"
           rules={[{ required: true }]}
         >
           <CurrencyInput />
