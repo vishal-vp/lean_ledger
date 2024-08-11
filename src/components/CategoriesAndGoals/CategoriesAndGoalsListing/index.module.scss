@@ -1,4 +1,9 @@
 .categoriesAndGoalsListing {
   height: 100%;
   overflow: hidden;
+  margin-top: 1rem;
+
+  > :global(.sectionHeading) {
+    margin-bottom: 1rem;
+  }
 }

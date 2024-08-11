@@ -36,7 +36,13 @@ export const AddTransactionModal = ({ onClose }) => {
   }
 
   return (
-    <Modal open={true} onCancel={onClose} onClose={onClose} onOk={handleSubmit}>
+    <Modal
+      open={true}
+      onCancel={onClose}
+      onClose={onClose}
+      onOk={handleSubmit}
+      title="Add Transaction"
+    >
       <Form form={form} labelCol={{ span: 6 }}>
         <Form.Item
           label="Expense Type"

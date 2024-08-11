@@ -1,6 +1,8 @@
 .headerContainer {
-  height: 8vh;
-  padding: 1rem 0.6rem;
+  height: 6vh;
+  padding: 1rem 0.6rem 1.2rem 0.6rem;
+  border-bottom: 2px solid #e5e8eb;
+
   :global {
     .ant-image {
       height: 100%;

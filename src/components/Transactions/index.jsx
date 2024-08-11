@@ -1,16 +1,18 @@
-import { Button, Divider } from "antd";
+import { Button } from "antd";
 import { SectionHeading } from "../SectionHeading";
 import { PlusOutlined } from "@ant-design/icons";
 import { TransactionsTable } from "./TransactionsTable";
 import { useState } from "react";
 import { AddTransactionModal } from "./AddTransactionModal";
 
+import styles from "./index.module.scss";
+
 export const Transactions = () => {
   const [isAddTransactionModalVisible, setIsAddTransactionModalVisible] =
     useState(false);
 
   return (
-    <>
+    <div className={styles.transactions}>
       <SectionHeading
         title="Transactions"
         actionButtons={[
@@ -22,15 +24,12 @@ export const Transactions = () => {
           />,
         ]}
       />
-      <Divider
-        style={{ margin: "4px", borderWidth: "2px", borderColor: "#c4c4c4" }}
-      />
       <TransactionsTable />
       {isAddTransactionModalVisible && (
         <AddTransactionModal
           onClose={() => setIsAddTransactionModalVisible(false)}
         />
       )}
-    </>
+    </div>
   );
 };

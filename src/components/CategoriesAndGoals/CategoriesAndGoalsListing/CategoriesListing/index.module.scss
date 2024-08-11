@@ -1,4 +1,8 @@
 .categoriesListing {
   height: 80%;
   overflow-y: auto;
+
+  > :global(.progressIndicator) {
+    margin-bottom: 0.6rem;
+  }
 }

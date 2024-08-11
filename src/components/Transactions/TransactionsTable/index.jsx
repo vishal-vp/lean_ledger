@@ -56,6 +56,7 @@ export const TransactionsTable = () => {
       dataSource={transactions}
       columns={getColumns(categories)}
       rowKey="id"
+      bordered
     />
   );
 };

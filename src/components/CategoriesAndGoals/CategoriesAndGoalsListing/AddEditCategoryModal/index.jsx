@@ -50,6 +50,7 @@ export const AddEditCategoryModal = ({
       onCancel={handleClose}
       onClose={handleClose}
       onOk={handleSubmit}
+      title={`${categoryBeingEdited ? "Edit" : "Add"} Category`}
     >
       <Form form={form} initialValues={initialValues}>
         <Form.Item label="Name" name="name" rules={[{ required: true }]}>

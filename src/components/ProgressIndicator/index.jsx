@@ -23,12 +23,16 @@ export const ProgressIndicator = ({
   const isProgressAtUpperExtreme = progressPercentage >= 100;
 
   return (
-    <div>
+    <div className="progressIndicator">
       <div className={styles.progressIndicatorInfo}>
         <span>{name}</span>
         <div className={styles.targetAndActionButtonsContainer}>
           <span>{target}</span>
-          <div className={styles.actionButtonsContainer}>{actionButtons}</div>
+          <div
+            className={`${styles.actionButtonsContainer} actionButtonsContainer`}
+          >
+            {actionButtons}
+          </div>
         </div>
       </div>
       <Progress

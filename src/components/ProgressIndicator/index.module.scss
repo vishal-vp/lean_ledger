@@ -1,11 +1,13 @@
 .progressIndicatorInfo {
   display: flex;
   justify-content: space-between;
+
   .targetAndActionButtonsContainer {
     display: flex;
-    gap: 0.3rem;
+    gap: 1rem;
+
     .actionButtonsContainer {
-      gap: 0.3rem;
+      gap: 1rem;
       display: flex;
     }
   }
