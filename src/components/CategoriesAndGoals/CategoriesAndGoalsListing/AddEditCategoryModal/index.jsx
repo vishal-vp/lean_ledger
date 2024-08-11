@@ -10,7 +10,7 @@ export const AddEditCategoryModal = ({
   categoryBeingEdited,
 }) => {
   const [form] = Form.useForm();
-  const categoriesDispatch = useAtom(categoriesAtom)[1];
+  const dispatchCategories = useAtom(categoriesAtom)[1];
 
   function handleClose() {
     form.resetFields();
@@ -22,13 +22,13 @@ export const AddEditCategoryModal = ({
       await form.validateFields();
       const values = form.getFieldsValue();
       if (categoryBeingEdited) {
-        categoriesDispatch({
+        dispatchCategories({
           type: CATEGORIES_ACTIONS.EDIT,
           categoryBeingEdited,
           updatedCategoryData: values,
         });
       } else {
-        categoriesDispatch({
+        dispatchCategories({
           type: CATEGORIES_ACTIONS.ADD,
           newCategoryData: values,
         });

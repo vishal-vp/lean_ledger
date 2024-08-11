@@ -21,13 +21,13 @@ const DeleteButton = ({ onDelete }) => {
 };
 
 export const CategoriesListing = ({ categories }) => {
-  const categoriesDispatch = useAtom(categoriesAtom)[1];
+  const dispatchCategories = useAtom(categoriesAtom)[1];
   const [categoryBeingEdited, setCategoryBeingEdited] = useState();
   const [isEditCategoryModalVisible, setIsEditCategoryModalVisible] =
     useState(false);
 
   function handleDeleteCategory(deletedCategoryId) {
-    categoriesDispatch({
+    dispatchCategories({
       type: CATEGORIES_ACTIONS.DELETE,
       deletedCategoryId,
     });

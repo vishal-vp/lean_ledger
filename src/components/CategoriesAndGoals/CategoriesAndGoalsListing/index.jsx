@@ -12,7 +12,7 @@ import { CategoriesListing } from "./CategoriesListing";
 import DepositIcon from "@/assets/deposit-icon.svg?react";
 
 export const CategoriesAndGoalsListing = ({ title }) => {
-  const [categories, categoriesDispatch] = useAtom(categoriesAtom);
+  const [categories, dispatchCategories] = useAtom(categoriesAtom);
   const [isAddCategoryModalVisible, setIsAddCategoryModalVisible] =
     useState(false);
 
@@ -26,7 +26,7 @@ export const CategoriesAndGoalsListing = ({ title }) => {
               title="Refill categories?"
               key="Allocate Budget"
               onConfirm={() =>
-                categoriesDispatch({ type: CATEGORIES_ACTIONS.REFILL })
+                dispatchCategories({ type: CATEGORIES_ACTIONS.REFILL })
               }
             >
               <Button
