@@ -5,21 +5,14 @@ import { Button, Popconfirm } from "antd";
 
 import styles from "./index.module.scss";
 import { useAtom } from "jotai";
-import { categoriesAtom } from "@/atoms/categories";
+import { CATEGORIES_ACTIONS, categoriesAtom } from "@/atoms/categories";
 import { useState } from "react";
 import { AddEditCategoryModal } from "./AddEditCategoryModal";
 import { CategoriesListing } from "./CategoriesListing";
 import DepositIcon from "@/assets/deposit-icon.svg?react";
 
-function refillCategories(categories) {
-  return categories?.map((category) => ({
-    ...category,
-    amountPending: category?.budgetAmount,
-  }));
-}
-
 export const CategoriesAndGoalsListing = ({ title }) => {
-  const [categories, setCategories] = useAtom(categoriesAtom);
+  const [categories, categoriesDispatch] = useAtom(categoriesAtom);
   const [isAddCategoryModalVisible, setIsAddCategoryModalVisible] =
     useState(false);
 
@@ -33,9 +26,7 @@ export const CategoriesAndGoalsListing = ({ title }) => {
               title="Refill categories?"
               key="Allocate Budget"
               onConfirm={() =>
-                setCategories((existingCategories) =>
-                  refillCategories(existingCategories)
-                )
+                categoriesDispatch({ type: CATEGORIES_ACTIONS.REFILL })
               }
             >
               <Button

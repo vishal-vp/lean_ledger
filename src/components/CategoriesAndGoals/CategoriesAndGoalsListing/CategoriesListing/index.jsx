@@ -3,8 +3,8 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Popconfirm } from "antd";
 
 import styles from "./index.module.scss";
-import { useSetAtom } from "jotai";
-import { categoriesAtom } from "@/atoms/categories";
+import { useAtom } from "jotai";
+import { CATEGORIES_ACTIONS, categoriesAtom } from "@/atoms/categories";
 import { AddEditCategoryModal } from "../AddEditCategoryModal";
 import { useState } from "react";
 
@@ -21,14 +21,15 @@ const DeleteButton = ({ onDelete }) => {
 };
 
 export const CategoriesListing = ({ categories }) => {
-  const setCategories = useSetAtom(categoriesAtom);
+  const categoriesDispatch = useAtom(categoriesAtom)[1];
   const [categoryBeingEdited, setCategoryBeingEdited] = useState();
   const [isEditCategoryModalVisible, setIsEditCategoryModalVisible] =
     useState(false);
 
   function handleDeleteCategory(deletedCategoryId) {
-    setCategories((existingCategories) => {
-      return existingCategories?.filter(({ id }) => id !== deletedCategoryId);
+    categoriesDispatch({
+      type: CATEGORIES_ACTIONS.DELETE,
+      deletedCategoryId,
     });
   }
 

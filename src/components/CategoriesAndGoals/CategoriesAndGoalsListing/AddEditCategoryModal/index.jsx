@@ -1,9 +1,8 @@
-import { categoriesAtom } from "@/atoms/categories";
+import { CATEGORIES_ACTIONS, categoriesAtom } from "@/atoms/categories";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { CATEGORY_TYPES, FORM_ERROR_MESSAGES } from "@/utils/constants";
 import { Form, Input, Modal, Radio, message } from "antd";
-import { useSetAtom } from "jotai";
-import { nanoid } from "nanoid";
+import { useAtom } from "jotai";
 
 export const AddEditCategoryModal = ({
   isOpen,
@@ -11,7 +10,7 @@ export const AddEditCategoryModal = ({
   categoryBeingEdited,
 }) => {
   const [form] = Form.useForm();
-  const setCategories = useSetAtom(categoriesAtom);
+  const categoriesDispatch = useAtom(categoriesAtom)[1];
 
   function handleClose() {
     form.resetFields();
@@ -23,26 +22,16 @@ export const AddEditCategoryModal = ({
       await form.validateFields();
       const values = form.getFieldsValue();
       if (categoryBeingEdited) {
-        setCategories((existingCategories) => [
-          ...existingCategories?.filter(
-            ({ id }) => id !== categoryBeingEdited?.id
-          ),
-          {
-            ...existingCategories?.find(
-              ({ id }) => id === categoryBeingEdited?.id
-            ),
-            ...values,
-          },
-        ]);
+        categoriesDispatch({
+          type: CATEGORIES_ACTIONS.EDIT,
+          categoryBeingEdited,
+          updatedCategoryData: values,
+        });
       } else {
-        setCategories((existingCategories) => [
-          ...existingCategories,
-          {
-            id: nanoid(),
-            createdAt: new Date().toISOString(),
-            ...values,
-          },
-        ]);
+        categoriesDispatch({
+          type: CATEGORIES_ACTIONS.ADD,
+          newCategoryData: values,
+        });
       }
       onClose();
     } catch {
