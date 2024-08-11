@@ -23,10 +23,12 @@ export const AddTransactionModal = ({ onClose }) => {
           createdAt: new Date().toISOString(),
         },
       ]);
-      dispatchCategories({
-        type: CATEGORIES_ACTIONS.LOG_EXPENSE,
-        transaction: newTransaction,
-      });
+      if (newTransaction?.type === TRANSACTION_TYPES.EXPENSE) {
+        dispatchCategories({
+          type: CATEGORIES_ACTIONS.LOG_EXPENSE,
+          transaction: newTransaction,
+        });
+      }
       onClose();
     } catch {
       message.error(FORM_ERROR_MESSAGES.FORM_VALIDATION_ERROR);
