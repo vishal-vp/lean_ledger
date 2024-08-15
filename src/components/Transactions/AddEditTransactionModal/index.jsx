@@ -69,14 +69,20 @@ export const AddEditTransactionModal = ({
       onOk={handleSubmit}
       title="Add Transaction"
     >
-      <Form form={form} labelCol={{ span: 6 }} initialValues={initialValues}>
+      <Form
+        form={form}
+        labelCol={{ span: 6 }}
+        initialValues={initialValues}
+        validateMessages={{
+          required: FORM_ERROR_MESSAGES.REQUIRED_FIELD_ERROR,
+        }}
+      >
         <Form.Item
           label="Date"
           name="date"
           rules={[
             {
               required: true,
-              message: FORM_ERROR_MESSAGES.REQUIRED_FIELD_ERROR,
             },
           ]}
         >
@@ -88,7 +94,6 @@ export const AddEditTransactionModal = ({
           rules={[
             {
               required: true,
-              message: FORM_ERROR_MESSAGES.REQUIRED_FIELD_ERROR,
             },
           ]}
         >
@@ -110,7 +115,6 @@ export const AddEditTransactionModal = ({
                 rules={[
                   {
                     required: true,
-                    message: FORM_ERROR_MESSAGES.REQUIRED_FIELD_ERROR,
                   },
                 ]}
               >
@@ -130,7 +134,6 @@ export const AddEditTransactionModal = ({
           rules={[
             {
               required: true,
-              message: FORM_ERROR_MESSAGES.REQUIRED_FIELD_ERROR,
             },
           ]}
         >
@@ -142,7 +145,6 @@ export const AddEditTransactionModal = ({
           rules={[
             {
               required: true,
-              message: FORM_ERROR_MESSAGES.REQUIRED_FIELD_ERROR,
             },
           ]}
         >

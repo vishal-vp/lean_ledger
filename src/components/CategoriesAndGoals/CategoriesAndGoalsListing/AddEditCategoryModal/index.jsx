@@ -52,7 +52,13 @@ export const AddEditCategoryModal = ({
       onOk={handleSubmit}
       title={`${categoryBeingEdited ? "Edit" : "Add"} Category`}
     >
-      <Form form={form} initialValues={initialValues}>
+      <Form
+        form={form}
+        initialValues={initialValues}
+        validateMessages={{
+          required: FORM_ERROR_MESSAGES.REQUIRED_FIELD_ERROR,
+        }}
+      >
         <Form.Item label="Name" name="name" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
@@ -64,7 +70,7 @@ export const AddEditCategoryModal = ({
           <CurrencyInput />
         </Form.Item>
         <Form.Item
-          label="Balance"
+          label="Remaining Balance"
           name="amountPending"
           rules={[{ required: true }]}
         >
