@@ -1,7 +1,6 @@
-import { CATEGORY_TYPES } from "@/utils/constants";
-import { atom } from "jotai";
-import { atomWithReducer } from "jotai/utils";
+import { ATOM_PERISISTENCE_KEYS, CATEGORY_TYPES } from "@/utils/constants";
 import { nanoid } from "nanoid";
+import { atomWithStorageAndReducer } from "./utils";
 
 export const CATEGORIES_ACTIONS = {
   LOG_EXPENSE: "LOG_EXPENSE",
@@ -92,62 +91,8 @@ const categoriesReducer = (existingCategories, action) => {
   throw new Error("Unknown action type");
 };
 
-export const categoriesAtom = atomWithReducer(
-  [
-    {
-      id: "1",
-      name: "Grocery",
-      budgetAmount: 100,
-      type: CATEGORY_TYPES.MONTHLY,
-      amountPending: 100,
-      createdAt: "2024-01-01T10:00:00.000Z",
-      lastModifiedAt: "2024-01-01T10:00:00.000Z",
-    },
-    {
-      id: "2",
-      name: "Medical",
-      budgetAmount: 50,
-      type: CATEGORY_TYPES.MONTHLY,
-      amountPending: 40,
-      createdAt: "2023-02-01T11:00:00.000Z",
-      lastModifiedAt: "2024-01-01T10:00:00.000Z",
-    },
-    {
-      id: nanoid(),
-      name: "Food",
-      budgetAmount: 82,
-      type: CATEGORY_TYPES.MONTHLY,
-      amountPending: 33,
-      createdAt: "2023-03-01T12:00:00.000Z",
-      lastModifiedAt: "2024-01-01T10:00:00.000Z",
-    },
-    {
-      id: nanoid(),
-      name: "Entertainment",
-      budgetAmount: 998,
-      type: CATEGORY_TYPES.MONTHLY,
-      amountPending: 0,
-      createdAt: "2023-04-01T13:00:00.000Z",
-      lastModifiedAt: "2024-01-01T10:00:00.000Z",
-    },
-    {
-      id: nanoid(),
-      name: "Insurance",
-      budgetAmount: 821,
-      type: CATEGORY_TYPES.MONTHLY,
-      amountPending: 344,
-      createdAt: "2023-05-01T14:00:00.000Z",
-      lastModifiedAt: "2024-01-01T10:00:00.000Z",
-    },
-    {
-      id: nanoid(),
-      name: "Clothes",
-      budgetAmount: 223,
-      type: CATEGORY_TYPES.MONTHLY,
-      amountPending: 11,
-      createdAt: "2023-06-01T15:00:00.000Z",
-      lastModifiedAt: "2024-01-01T10:00:00.000Z",
-    },
-  ],
+export const categoriesAtom = atomWithStorageAndReducer(
+  ATOM_PERISISTENCE_KEYS.CATEGORIES,
+  [],
   categoriesReducer
 );

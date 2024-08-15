@@ -1,7 +1,7 @@
-import { TRANSACTION_TYPES } from "@/utils/constants";
+import { ATOM_PERISISTENCE_KEYS, TRANSACTION_TYPES } from "@/utils/constants";
 import { atom } from "jotai";
-import { atomWithReducer } from "jotai/utils";
 import { nanoid } from "nanoid";
+import { atomWithStorageAndReducer } from "./utils";
 
 const sortByKey = (array, key, isAscending = true) => {
   return array.sort((a, b) => {
@@ -53,152 +53,9 @@ const transactionsReducer = (existingTransactions, action) => {
   throw new Error("Unknown action type");
 };
 
-export const transactionsAtom = atomWithReducer(
-  [
-    {
-      id: nanoid(),
-      amount: 1000,
-      date: "2024-02-01T10:00:00.000Z",
-      createdAt: "2024-01-01T10:00:00.000Z",
-      type: TRANSACTION_TYPES.INCOME,
-      description: "Salary",
-    },
-    {
-      id: nanoid(),
-      categoryId: "1",
-      amount: 50,
-      date: "2024-02-01T10:00:00.000Z",
-      createdAt: "2024-02-01T10:00:00.000Z",
-      type: TRANSACTION_TYPES.EXPENSE,
-      description: "Health Checkup",
-    },
-    {
-      id: nanoid(),
-      categoryId: "2",
-      amount: 89,
-      date: "2024-02-01T10:00:00.000Z",
-      createdAt: "2024-03-12T10:00:00.000Z",
-      type: TRANSACTION_TYPES.EXPENSE,
-      description: "Restaurant",
-    },
-    {
-      id: nanoid(),
-      categoryId: "1",
-      amount: 10,
-      date: "2024-02-01T10:00:00.000Z",
-      createdAt: "2024-04-21T10:00:00.000Z",
-      type: TRANSACTION_TYPES.EXPENSE,
-      description: "DMart Groceries",
-    },
-    {
-      id: nanoid(),
-      categoryId: "1",
-      amount: 20,
-      date: "2024-02-01T10:00:00.000Z",
-      createdAt: "2024-04-01T10:00:00.000Z",
-      type: TRANSACTION_TYPES.EXPENSE,
-      description: "Travel",
-    },
-    {
-      id: nanoid(),
-      categoryId: "1",
-      amount: 20,
-      date: "2024-02-01T10:00:00.000Z",
-      createdAt: "2024-04-01T10:00:00.000Z",
-      type: TRANSACTION_TYPES.EXPENSE,
-      description: "Travel",
-    },
-    {
-      id: nanoid(),
-      categoryId: "1",
-      amount: 20,
-      date: "2024-02-01T10:00:00.000Z",
-      createdAt: "2024-04-01T10:00:00.000Z",
-      type: TRANSACTION_TYPES.EXPENSE,
-      description: "Travel",
-    },
-    {
-      id: nanoid(),
-      categoryId: "1",
-      amount: 20,
-      date: "2024-02-01T10:00:00.000Z",
-      createdAt: "2024-04-01T10:00:00.000Z",
-      type: TRANSACTION_TYPES.EXPENSE,
-      description: "Travel",
-    },
-    {
-      id: nanoid(),
-      categoryId: "1",
-      amount: 20,
-      date: "2024-02-01T10:00:00.000Z",
-      createdAt: "2024-04-01T10:00:00.000Z",
-      type: TRANSACTION_TYPES.EXPENSE,
-      description: "Travel",
-    },
-    {
-      id: nanoid(),
-      categoryId: "1",
-      amount: 20,
-      date: "2024-02-01T10:00:00.000Z",
-      createdAt: "2024-04-01T10:00:00.000Z",
-      type: TRANSACTION_TYPES.EXPENSE,
-      description: "Travel",
-    },
-    {
-      id: nanoid(),
-      categoryId: "1",
-      amount: 20,
-      date: "2024-02-01T10:00:00.000Z",
-      createdAt: "2024-04-01T10:00:00.000Z",
-      type: TRANSACTION_TYPES.EXPENSE,
-      description: "Travel",
-    },
-    {
-      id: nanoid(),
-      categoryId: "1",
-      amount: 20,
-      date: "2024-02-01T10:00:00.000Z",
-      createdAt: "2024-04-01T10:00:00.000Z",
-      type: TRANSACTION_TYPES.EXPENSE,
-      description: "Travel",
-    },
-    {
-      id: nanoid(),
-      categoryId: "1",
-      amount: 20,
-      date: "2024-02-01T10:00:00.000Z",
-      createdAt: "2024-04-01T10:00:00.000Z",
-      type: TRANSACTION_TYPES.EXPENSE,
-      description: "Travel",
-    },
-    {
-      id: nanoid(),
-      categoryId: "1",
-      amount: 20,
-      date: "2024-02-01T10:00:00.000Z",
-      createdAt: "2024-04-01T10:00:00.000Z",
-      type: TRANSACTION_TYPES.EXPENSE,
-      description: "Travel",
-    },
-    {
-      id: nanoid(),
-      categoryId: "1",
-      amount: 20,
-      date: "2024-02-01T10:00:00.000Z",
-      createdAt: "2024-04-01T10:00:00.000Z",
-      type: TRANSACTION_TYPES.EXPENSE,
-      description: "Travel",
-    },
-    {
-      id: nanoid(),
-      categoryId: "1",
-      amount: 20,
-      date: "2024-02-01T10:00:00.000Z",
-      createdAt: "2024-04-01T10:00:00.000Z",
-      type: TRANSACTION_TYPES.EXPENSE,
-      description: "Travel",
-    },
-  ],
+export const transactionsAtom = atomWithStorageAndReducer(
+  ATOM_PERISISTENCE_KEYS.TRANSACTIONS,
+  [],
   transactionsReducer
 );
 

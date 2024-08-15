@@ -15,3 +15,9 @@ export const TRANSACTION_TYPES = {
   INCOME: "Income",
   EXPENSE: "Expense",
 };
+
+export const ATOM_PERISISTENCE_KEYS = {
+  TRANSACTIONS: "TRANSACTIONS",
+  CATEGORIES: "CATEGORIES",
+  ACCOUNTS: "ACCOUNTS",
+};
