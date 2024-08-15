@@ -18,10 +18,14 @@ const getColumns = (categories) => [
   {
     title: "Category",
     dataIndex: "categoryId",
-    render: (categoryId, transaction) =>
-      transaction?.type === TRANSACTION_TYPES.INCOME
+    render: (categoryId, transaction) => {
+      const category = categories?.find(
+        (category) => category?.id === categoryId
+      );
+      return transaction?.type === TRANSACTION_TYPES.INCOME
         ? TRANSACTION_TYPES.INCOME
-        : categories?.find((category) => category?.id === categoryId)?.name,
+        : category?.name;
+    },
   },
   {
     title: "Description",
@@ -37,14 +41,14 @@ const getColumns = (categories) => [
 const formatDate = (date) => {
   const options = {
     year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
     hour12: true,
   };
 
-  return date.toLocaleDateString("en-US", options);
+  return new Intl.DateTimeFormat("en-US", options).format(date);
 };
 
 export const TransactionsTable = () => {
