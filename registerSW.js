@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/lean_ledger/sw.js', { scope: '/lean_ledger/' })})}
