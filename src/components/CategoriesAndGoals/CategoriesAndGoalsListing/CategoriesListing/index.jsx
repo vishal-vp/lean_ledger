@@ -1,6 +1,6 @@
 import { ProgressIndicator } from "@/components/ProgressIndicator";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Popconfirm } from "antd";
+import { Button, Empty, Popconfirm } from "antd";
 
 import styles from "./index.module.scss";
 import { useAtom } from "jotai";
@@ -31,6 +31,10 @@ export const CategoriesListing = ({ categories }) => {
       type: CATEGORIES_ACTIONS.DELETE,
       deletedCategoryId,
     });
+  }
+
+  if (categories.length === 0) {
+    return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
   }
 
   return (
