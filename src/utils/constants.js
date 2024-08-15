@@ -30,8 +30,8 @@ export const NAVIGATION_MODULES = {
     key: "REPORTS",
     label: "Reports",
   },
-  EXPORT: {
-    key: "EXPORT",
-    label: "Export",
+  SYNC: {
+    key: "SYNC",
+    label: "Sync",
   },
 };
