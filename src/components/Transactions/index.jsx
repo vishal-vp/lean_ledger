@@ -3,7 +3,7 @@ import { SectionHeading } from "../SectionHeading";
 import { PlusOutlined } from "@ant-design/icons";
 import { TransactionsTable } from "./TransactionsTable";
 import { useState } from "react";
-import { AddTransactionModal } from "./AddEditTransactionModal";
+import { AddEditTransactionModal } from "./AddEditTransactionModal";
 
 import styles from "./index.module.scss";
 
@@ -26,7 +26,7 @@ export const Transactions = () => {
       />
       <TransactionsTable />
       {isAddTransactionModalVisible && (
-        <AddTransactionModal
+        <AddEditTransactionModal
           onClose={() => setIsAddTransactionModalVisible(false)}
         />
       )}

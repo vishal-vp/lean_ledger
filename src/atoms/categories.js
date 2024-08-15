@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 
 export const CATEGORIES_ACTIONS = {
   LOG_EXPENSE: "LOG_EXPENSE",
+  UPDATE_EXPENSE: "UPDATE_EXPENSE",
   EDIT: "EDIT",
   ADD: "ADD",
   DELETE: "DELETE",
@@ -37,6 +38,23 @@ const categoriesReducer = (existingCategories, action) => {
         ...poppedCategory,
         amountPending:
           poppedCategory?.amountPending - action?.transaction?.amount,
+        lastModifiedAt: currentDate.toISOString(),
+      },
+    ];
+  } else if (action.type === CATEGORIES_ACTIONS.UPDATE_EXPENSE) {
+    const { poppedCategory, remainingCategories } = popCategory(
+      existingCategories,
+      action?.oldTransactionData?.categoryId
+    );
+    return [
+      ...remainingCategories,
+      {
+        ...poppedCategory,
+        amountPending:
+          poppedCategory?.amountPending +
+          action?.oldTransactionData?.amount -
+          action?.newTransactionData?.amount,
+        lastModifiedAt: currentDate.toISOString(),
       },
     ];
   } else if (action.type === CATEGORIES_ACTIONS.ADD) {

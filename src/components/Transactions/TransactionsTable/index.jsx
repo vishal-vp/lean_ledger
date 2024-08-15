@@ -4,6 +4,7 @@ import { useAtomValue } from "jotai";
 import { sortedTransactionsAtom } from "@/atoms/transactions";
 import { categoriesAtom } from "@/atoms/categories";
 import { TRANSACTION_TYPES } from "@/utils/constants";
+import { TransactionActions } from "./TransactionActions";
 
 const getColumns = (categories) => [
   {
@@ -22,9 +23,13 @@ const getColumns = (categories) => [
       const category = categories?.find(
         (category) => category?.id === categoryId
       );
-      return transaction?.type === TRANSACTION_TYPES.INCOME
-        ? TRANSACTION_TYPES.INCOME
-        : category?.name;
+      if (transaction?.type === TRANSACTION_TYPES.INCOME) {
+        TRANSACTION_TYPES.INCOME;
+      } else if (category?.name) {
+        return category?.name;
+      } else {
+        return "---";
+      }
     },
   },
   {
@@ -35,6 +40,13 @@ const getColumns = (categories) => [
     title: "Date",
     dataIndex: "createdAt",
     render: (value) => formatDate(new Date(value)),
+  },
+  {
+    title: "Actions",
+    dataIndex: "actions",
+    render: (_, transaction) => (
+      <TransactionActions transaction={transaction} />
+    ),
   },
 ];
 

@@ -5,7 +5,10 @@ import { FORM_ERROR_MESSAGES, TRANSACTION_TYPES } from "@/utils/constants";
 import { Form, Input, Modal, Select, message } from "antd";
 import { useAtom } from "jotai";
 
-export const AddTransactionModal = ({ onClose }) => {
+export const AddEditTransactionModal = ({
+  onClose,
+  transactionBeingEdited,
+}) => {
   const [form] = Form.useForm();
   const [categories, dispatchCategories] = useAtom(categoriesAtom);
   const dispatchTransactions = useAtom(transactionsAtom)[1];
@@ -14,20 +17,40 @@ export const AddTransactionModal = ({ onClose }) => {
     try {
       await form.validateFields();
       const newTransactionData = form.getFieldsValue();
-      dispatchTransactions({
-        type: TRANSACTIONS_ACTIONS.ADD,
-        newTransactionData,
-      });
-      if (newTransactionData?.type === TRANSACTION_TYPES.EXPENSE) {
-        dispatchCategories({
-          type: CATEGORIES_ACTIONS.LOG_EXPENSE,
-          transaction: newTransactionData,
+      if (transactionBeingEdited) {
+        dispatchTransactions({
+          type: TRANSACTIONS_ACTIONS.EDIT,
+          transactionBeingEdited,
+          updatedTransactionData: newTransactionData,
         });
+        if (transactionBeingEdited?.type === TRANSACTION_TYPES.EXPENSE) {
+          dispatchCategories({
+            type: CATEGORIES_ACTIONS.UPDATE_EXPENSE,
+            newTransactionData,
+            oldTransactionData: transactionBeingEdited,
+          });
+        }
+      } else {
+        dispatchTransactions({
+          type: TRANSACTIONS_ACTIONS.ADD,
+          newTransactionData,
+        });
+        if (newTransactionData?.type === TRANSACTION_TYPES.EXPENSE) {
+          dispatchCategories({
+            type: CATEGORIES_ACTIONS.LOG_EXPENSE,
+            transaction: newTransactionData,
+          });
+        }
       }
       onClose();
     } catch {
       message.error(FORM_ERROR_MESSAGES.FORM_VALIDATION_ERROR);
     }
+  }
+
+  let initialValues = {};
+  if (transactionBeingEdited) {
+    initialValues = { ...transactionBeingEdited };
   }
 
   return (
@@ -38,7 +61,7 @@ export const AddTransactionModal = ({ onClose }) => {
       onOk={handleSubmit}
       title="Add Transaction"
     >
-      <Form form={form} labelCol={{ span: 6 }}>
+      <Form form={form} labelCol={{ span: 6 }} initialValues={initialValues}>
         <Form.Item
           label="Expense Type"
           name="type"
