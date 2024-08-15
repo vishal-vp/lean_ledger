@@ -1,11 +1,19 @@
 import { Header } from "./components/Header";
-import { MainLayout } from "./components/MainLayout";
+import { Dashboard } from "./components/Dashboard";
+import { NAVIGATION_MODULES } from "./utils/constants";
+import { useAtomValue } from "jotai";
+import { NavigationModuleAtom } from "./atoms/navigationModule";
 
 function App() {
+  const navigationModule = useAtomValue(NavigationModuleAtom);
+  const moduleComponentMapping = {
+    [NAVIGATION_MODULES.DASHBOARD.key]: <Dashboard />,
+  };
+
   return (
     <>
       <Header />
-      <MainLayout />
+      {moduleComponentMapping[navigationModule]}
     </>
   );
 }

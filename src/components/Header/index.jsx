@@ -1,6 +1,7 @@
 import logo from "@/assets/logo.svg";
 import { Image, Layout, Typography } from "antd";
 import styles from "./index.module.scss";
+import { NavigationMenu } from "./NavigationMenu";
 
 export const Header = () => {
   return (
@@ -9,6 +10,7 @@ export const Header = () => {
       <Typography.Title className={styles.productName} level={3}>
         Lean Ledger
       </Typography.Title>
+      <NavigationMenu />
     </Layout.Header>
   );
 };

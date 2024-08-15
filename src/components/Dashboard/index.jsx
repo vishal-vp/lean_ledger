@@ -4,7 +4,7 @@ import { Panel } from "../Panel";
 import { Transactions } from "../Transactions";
 import styles from "./index.module.scss";
 
-export const MainLayout = () => {
+export const Dashboard = () => {
   return (
     <div className={styles.mainLayout}>
       <Panel className={styles.sidePanel}>

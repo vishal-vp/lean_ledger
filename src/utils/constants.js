@@ -19,5 +19,20 @@ export const TRANSACTION_TYPES = {
 export const ATOM_PERISISTENCE_KEYS = {
   TRANSACTIONS: "TRANSACTIONS",
   CATEGORIES: "CATEGORIES",
-  ACCOUNTS: "ACCOUNTS",
+  NAVIGATION: "NAVIGATION",
+};
+
+export const NAVIGATION_MODULES = {
+  DASHBOARD: {
+    key: "DASHBOARD",
+    label: "Dashboard",
+  },
+  REPORTS: {
+    key: "REPORTS",
+    label: "Reports",
+  },
+  EXPORT: {
+    key: "EXPORT",
+    label: "Export",
+  },
 };
