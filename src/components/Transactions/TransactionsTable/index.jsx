@@ -1,7 +1,7 @@
 import React from "react";
 import { Table } from "antd";
 import { useAtomValue } from "jotai";
-import { sortedTransactionsAtom } from "@/atoms/transactions";
+import { sortedAndFilteredTransactionsAtom } from "@/atoms/transactions";
 import { categoriesAtom } from "@/atoms/categories";
 import { TRANSACTION_TYPES } from "@/utils/constants";
 import { TransactionActions } from "./TransactionActions";
@@ -64,7 +64,7 @@ const formatDate = (date) => {
 };
 
 export const TransactionsTable = () => {
-  const transactions = useAtomValue(sortedTransactionsAtom);
+  const transactions = useAtomValue(sortedAndFilteredTransactionsAtom);
   const categories = useAtomValue(categoriesAtom);
 
   return (

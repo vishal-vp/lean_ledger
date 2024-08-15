@@ -2,6 +2,8 @@ import { ATOM_PERISISTENCE_KEYS, TRANSACTION_TYPES } from "@/utils/constants";
 import { atom } from "jotai";
 import { nanoid } from "nanoid";
 import { atomWithStorageAndReducer } from "./utils";
+import { filtersAtom } from "./filters";
+import dayjs from "dayjs";
 
 const sortByKey = (array, key, isAscending = true) => {
   return array.sort((a, b) => {
@@ -59,9 +61,19 @@ export const transactionsAtom = atomWithStorageAndReducer(
   transactionsReducer
 );
 
-export const sortedTransactionsAtom = atom((get) => {
+export const sortedAndFilteredTransactionsAtom = atom((get) => {
   const transactions = get(transactionsAtom);
-  return sortByKey(transactions, "date", false);
+  const filters = get(filtersAtom);
+  const filteredTransactions = transactions?.filter((transaction) => {
+    const isDateRangeFilterPresent =
+      filters?.dateRange?.[0] && filters?.dateRange?.[1];
+    const isDateInRange =
+      !isDateRangeFilterPresent ||
+      (dayjs(transaction.date) >= filters.dateRange[0] &&
+        dayjs(transaction.date) <= filters.dateRange[1]);
+    return isDateInRange;
+  });
+  return sortByKey(filteredTransactions, "date", false);
 });
 
 export const totalBalanceAtom = atom((get) => {

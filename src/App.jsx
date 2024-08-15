@@ -17,7 +17,6 @@ function App() {
   return (
     <>
       <Header />
-      {/* {moduleComponentMapping[navigationModule]} */}
       <div className="module">{moduleComponentMapping[navigationModule]}</div>
     </>
   );

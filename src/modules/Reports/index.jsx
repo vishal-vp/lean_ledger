@@ -1,12 +1,13 @@
-import { transactionsAtom } from "@/atoms/transactions";
+import { sortedAndFilteredTransactionsAtom } from "@/atoms/transactions";
 import { useAtomValue } from "jotai";
-import { Label, LabelList, Legend, Pie, PieChart, Tooltip } from "recharts";
+import { LabelList, Legend, Pie, PieChart, Tooltip } from "recharts";
 import { categoriesAtom } from "@/atoms/categories";
 import { schemeCategory10 } from "d3-scale-chromatic";
 import { Typography } from "antd";
 
 import styles from "./index.module.scss";
 import { CURRENCY_SYMBOL } from "@/utils/constants";
+import Filters from "@/components/Filters";
 
 const TooltipContent = ({ payload }) => {
   const data = payload?.[0] || {};
@@ -23,7 +24,7 @@ const TooltipContent = ({ payload }) => {
 };
 
 export const Reports = () => {
-  const transactions = useAtomValue(transactionsAtom);
+  const transactions = useAtomValue(sortedAndFilteredTransactionsAtom);
   const categories = useAtomValue(categoriesAtom);
 
   const colors = schemeCategory10;
@@ -45,6 +46,7 @@ export const Reports = () => {
 
   return (
     <>
+      <Filters className={styles.filters} />
       <Typography.Title className={styles.reportTitle} level={4}>
         Spending by Category
       </Typography.Title>

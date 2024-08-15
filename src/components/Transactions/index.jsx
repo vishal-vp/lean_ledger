@@ -6,6 +6,7 @@ import { useState } from "react";
 import { AddEditTransactionModal } from "./AddEditTransactionModal";
 
 import styles from "./index.module.scss";
+import Filters from "../Filters";
 
 export const Transactions = () => {
   const [isAddTransactionModalVisible, setIsAddTransactionModalVisible] =
@@ -16,6 +17,7 @@ export const Transactions = () => {
       <SectionHeading
         title="Transactions"
         actionButtons={[
+          <Filters key="filters" />,
           <Button
             icon={<PlusOutlined />}
             onClick={() => setIsAddTransactionModalVisible(true)}
