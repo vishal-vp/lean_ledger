@@ -5,6 +5,8 @@ import { useAtom } from "jotai";
 import { AddEditTransactionModal } from "../../AddEditTransactionModal";
 import { useState } from "react";
 
+import styles from "./index.module.scss";
+
 export const TransactionActions = ({ transaction }) => {
   const dispatchTransactions = useAtom(transactionsAtom)[1];
   const [
@@ -13,7 +15,7 @@ export const TransactionActions = ({ transaction }) => {
   ] = useState(false);
 
   return (
-    <>
+    <div className={styles.transactionActions}>
       <Button
         onClick={() => setIsAddEditTransactionModalVisible(true)}
         title="Edit Transaction"
@@ -44,6 +46,6 @@ export const TransactionActions = ({ transaction }) => {
           onClose={() => setIsAddEditTransactionModalVisible(false)}
         />
       )}
-    </>
+    </div>
   );
 };
