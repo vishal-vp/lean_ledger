@@ -1,11 +1,12 @@
 import { transactionsAtom } from "@/atoms/transactions";
 import { useAtomValue } from "jotai";
-import { Legend, Pie, PieChart, Tooltip } from "recharts";
+import { Label, LabelList, Legend, Pie, PieChart, Tooltip } from "recharts";
 import { categoriesAtom } from "@/atoms/categories";
 import { schemeCategory10 } from "d3-scale-chromatic";
 import { Typography } from "antd";
 
 import styles from "./index.module.scss";
+import { CURRENCY_SYMBOL } from "@/utils/constants";
 
 const TooltipContent = ({ payload }) => {
   const data = payload?.[0] || {};
@@ -14,7 +15,9 @@ const TooltipContent = ({ payload }) => {
   return (
     <div className={styles.tooltipContent}>
       <p className={styles.tooltipName}>{name}</p>
-      <p className={styles.tooltipValue}>${value?.toLocaleString()}</p>
+      <p className={styles.tooltipValue}>
+        {CURRENCY_SYMBOL} {value?.toLocaleString()}
+      </p>
     </div>
   );
 };
@@ -45,7 +48,7 @@ export const Reports = () => {
       <Typography.Title className={styles.reportTitle} level={4}>
         Spending by Category
       </Typography.Title>
-      <PieChart width={200} height={250}>
+      <PieChart width={400} height={250} styles={{ textAlign: "left" }}>
         <Legend verticalAlign="top" align="center" />
         <Tooltip content={<TooltipContent />} />
         <Pie
@@ -54,9 +57,9 @@ export const Reports = () => {
           nameKey="name"
           outerRadius={80}
           fill="#82ca9d"
-          labelLine={false}
-          legent="line"
-        />
+        >
+          <LabelList dataKey="value" position="inside" />
+        </Pie>
       </PieChart>
     </>
   );
