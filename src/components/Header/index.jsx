@@ -1,11 +1,14 @@
 import logo from "@/assets/logo.svg";
-import { Image } from "antd";
+import { Image, Layout, Typography } from "antd";
 import styles from "./index.module.scss";
 
 export const Header = () => {
   return (
-    <div className={styles.headerContainer}>
+    <Layout.Header className={styles.headerContainer}>
       <Image className={styles.logo} preview={false} src={logo} />
-    </div>
+      <Typography.Title className={styles.productName} level={3}>
+        Lean Ledger
+      </Typography.Title>
+    </Layout.Header>
   );
 };
