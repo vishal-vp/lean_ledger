@@ -25,6 +25,7 @@ function popCategory(categories, categoryId) {
 }
 
 const categoriesReducer = (existingCategories, action) => {
+  const currentDate = new Date();
   if (action.type === CATEGORIES_ACTIONS.LOG_EXPENSE) {
     const { poppedCategory, remainingCategories } = popCategory(
       existingCategories,
@@ -42,9 +43,10 @@ const categoriesReducer = (existingCategories, action) => {
     return [
       ...existingCategories,
       {
-        id: nanoid(),
-        createdAt: new Date().toISOString(),
         ...action?.newCategoryData,
+        id: nanoid(),
+        createdAt: currentDate.toISOString(),
+        lastModifiedAt: currentDate.toISOString(),
       },
     ];
   } else if (action.type === CATEGORIES_ACTIONS.EDIT) {
@@ -54,6 +56,7 @@ const categoriesReducer = (existingCategories, action) => {
       {
         ...existingCategories?.find(({ id }) => id === categoryBeingEdited?.id),
         ...action?.updatedCategoryData,
+        lastModifiedAt: currentDate.toISOString(),
       },
     ];
   } else if (action.type === CATEGORIES_ACTIONS.DELETE) {
@@ -64,6 +67,7 @@ const categoriesReducer = (existingCategories, action) => {
     return existingCategories?.map((category) => ({
       ...category,
       amountPending: category?.budgetAmount,
+      lastModifiedAt: currentDate.toISOString(),
     }));
   }
 
@@ -79,6 +83,7 @@ export const categoriesAtom = atomWithReducer(
       type: CATEGORY_TYPES.MONTHLY,
       amountPending: 100,
       createdAt: "2024-01-01T10:00:00.000Z",
+      lastModifiedAt: "2024-01-01T10:00:00.000Z",
     },
     {
       id: "2",
@@ -87,6 +92,7 @@ export const categoriesAtom = atomWithReducer(
       type: CATEGORY_TYPES.MONTHLY,
       amountPending: 40,
       createdAt: "2023-02-01T11:00:00.000Z",
+      lastModifiedAt: "2024-01-01T10:00:00.000Z",
     },
     {
       id: nanoid(),
@@ -95,6 +101,7 @@ export const categoriesAtom = atomWithReducer(
       type: CATEGORY_TYPES.MONTHLY,
       amountPending: 33,
       createdAt: "2023-03-01T12:00:00.000Z",
+      lastModifiedAt: "2024-01-01T10:00:00.000Z",
     },
     {
       id: nanoid(),
@@ -103,6 +110,7 @@ export const categoriesAtom = atomWithReducer(
       type: CATEGORY_TYPES.MONTHLY,
       amountPending: 0,
       createdAt: "2023-04-01T13:00:00.000Z",
+      lastModifiedAt: "2024-01-01T10:00:00.000Z",
     },
     {
       id: nanoid(),
@@ -111,6 +119,7 @@ export const categoriesAtom = atomWithReducer(
       type: CATEGORY_TYPES.MONTHLY,
       amountPending: 344,
       createdAt: "2023-05-01T14:00:00.000Z",
+      lastModifiedAt: "2024-01-01T10:00:00.000Z",
     },
     {
       id: nanoid(),
@@ -119,6 +128,7 @@ export const categoriesAtom = atomWithReducer(
       type: CATEGORY_TYPES.MONTHLY,
       amountPending: 11,
       createdAt: "2023-06-01T15:00:00.000Z",
+      lastModifiedAt: "2024-01-01T10:00:00.000Z",
     },
   ],
   categoriesReducer

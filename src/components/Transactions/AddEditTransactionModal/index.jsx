@@ -1,32 +1,27 @@
 import { CATEGORIES_ACTIONS, categoriesAtom } from "@/atoms/categories";
-import { transactionsAtom } from "@/atoms/transactions";
+import { TRANSACTIONS_ACTIONS, transactionsAtom } from "@/atoms/transactions";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { FORM_ERROR_MESSAGES, TRANSACTION_TYPES } from "@/utils/constants";
 import { Form, Input, Modal, Select, message } from "antd";
-import { useAtom, useSetAtom } from "jotai";
-import { nanoid } from "nanoid";
+import { useAtom } from "jotai";
 
 export const AddTransactionModal = ({ onClose }) => {
   const [form] = Form.useForm();
   const [categories, dispatchCategories] = useAtom(categoriesAtom);
-  const setTransactions = useSetAtom(transactionsAtom);
+  const dispatchTransactions = useAtom(transactionsAtom)[1];
 
   async function handleSubmit() {
     try {
       await form.validateFields();
-      const newTransaction = form.getFieldsValue();
-      setTransactions((previousTransactions) => [
-        ...previousTransactions,
-        {
-          ...newTransaction,
-          id: nanoid(),
-          createdAt: new Date().toISOString(),
-        },
-      ]);
-      if (newTransaction?.type === TRANSACTION_TYPES.EXPENSE) {
+      const newTransactionData = form.getFieldsValue();
+      dispatchTransactions({
+        type: TRANSACTIONS_ACTIONS.ADD,
+        newTransactionData,
+      });
+      if (newTransactionData?.type === TRANSACTION_TYPES.EXPENSE) {
         dispatchCategories({
           type: CATEGORIES_ACTIONS.LOG_EXPENSE,
-          transaction: newTransaction,
+          transaction: newTransactionData,
         });
       }
       onClose();

@@ -3,7 +3,7 @@ import { SectionHeading } from "../SectionHeading";
 import { PlusOutlined } from "@ant-design/icons";
 import { TransactionsTable } from "./TransactionsTable";
 import { useState } from "react";
-import { AddTransactionModal } from "./AddTransactionModal";
+import { AddTransactionModal } from "./AddEditTransactionModal";
 
 import styles from "./index.module.scss";
 
