@@ -38,7 +38,7 @@ const getColumns = (categories) => [
   },
   {
     title: "Date",
-    dataIndex: "createdAt",
+    dataIndex: "date",
     render: (value) => formatDate(new Date(value)),
   },
   {

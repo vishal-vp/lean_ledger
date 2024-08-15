@@ -13,6 +13,7 @@
     "@ant-design/icons": "^5.3.7",
     "antd": "^5.19.1",
     "classnames": "^2.5.1",
+    "dayjs": "^1.11.12",
     "jotai": "^2.8.4",
     "nanoid": "^5.0.7",
     "react": "^18.3.1",

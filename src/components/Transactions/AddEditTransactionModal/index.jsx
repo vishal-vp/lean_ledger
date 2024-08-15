@@ -2,7 +2,8 @@ import { CATEGORIES_ACTIONS, categoriesAtom } from "@/atoms/categories";
 import { TRANSACTIONS_ACTIONS, transactionsAtom } from "@/atoms/transactions";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { FORM_ERROR_MESSAGES, TRANSACTION_TYPES } from "@/utils/constants";
-import { Form, Input, Modal, Select, message } from "antd";
+import { DatePicker, Form, Input, Modal, Select, message } from "antd";
+import dayjs from "dayjs";
 import { useAtom } from "jotai";
 
 export const AddEditTransactionModal = ({
@@ -16,7 +17,11 @@ export const AddEditTransactionModal = ({
   async function handleSubmit() {
     try {
       await form.validateFields();
-      const newTransactionData = form.getFieldsValue();
+      const fieldsValue = form.getFieldValue();
+      const newTransactionData = {
+        ...fieldsValue,
+        date: fieldsValue?.date?.toISOString(),
+      };
       if (transactionBeingEdited) {
         dispatchTransactions({
           type: TRANSACTIONS_ACTIONS.EDIT,
@@ -50,7 +55,10 @@ export const AddEditTransactionModal = ({
 
   let initialValues = {};
   if (transactionBeingEdited) {
-    initialValues = { ...transactionBeingEdited };
+    initialValues = {
+      ...transactionBeingEdited,
+      date: dayjs(transactionBeingEdited?.date),
+    };
   }
 
   return (
@@ -62,6 +70,18 @@ export const AddEditTransactionModal = ({
       title="Add Transaction"
     >
       <Form form={form} labelCol={{ span: 6 }} initialValues={initialValues}>
+        <Form.Item
+          label="Date"
+          name="date"
+          rules={[
+            {
+              required: true,
+              message: FORM_ERROR_MESSAGES.REQUIRED_FIELD_ERROR,
+            },
+          ]}
+        >
+          <DatePicker showTime showSecond={false} />
+        </Form.Item>
         <Form.Item
           label="Expense Type"
           name="type"
