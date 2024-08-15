@@ -79,3 +79,9 @@ body,
   display: flex;
   flex-direction: column;
 }
+
+.module {
+  padding: 0 1rem;
+  height: 91vh;
+  margin-top: 1.6rem;
+}

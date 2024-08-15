@@ -1,7 +1,4 @@
-import { ATOM_PERISISTENCE_KEYS, NAVIGATION_MODULES } from "@/utils/constants";
-import { atomWithStorage } from "jotai/utils";
+import { NAVIGATION_MODULES } from "@/utils/constants";
+import { atom } from "jotai";
 
-export const NavigationModuleAtom = atomWithStorage(
-  ATOM_PERISISTENCE_KEYS.NAVIGATION,
-  NAVIGATION_MODULES.DASHBOARD.key
-);
+export const NavigationModuleAtom = atom(NAVIGATION_MODULES.DASHBOARD.key);

@@ -1,7 +1,7 @@
-import { AccountsSummary } from "../Accounts/AccountsSummary";
-import { CategoriesAndGoals } from "../CategoriesAndGoals";
-import { Panel } from "../Panel";
-import { Transactions } from "../Transactions";
+import { AccountsSummary } from "../../components/Accounts/AccountsSummary";
+import { CategoriesAndGoals } from "../../components/CategoriesAndGoals";
+import { Panel } from "../../components/Panel";
+import { Transactions } from "../../components/Transactions";
 import styles from "./index.module.scss";
 
 export const Dashboard = () => {
