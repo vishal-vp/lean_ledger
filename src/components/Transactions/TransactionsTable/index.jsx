@@ -6,49 +6,61 @@ import { categoriesAtom } from "@/atoms/categories";
 import { TRANSACTION_TYPES } from "@/utils/constants";
 import { TransactionActions } from "./TransactionActions";
 
-const getColumns = (categories) => [
-  {
-    title: "Type",
-    dataIndex: "type",
-  },
-  {
-    title: "Amount",
-    dataIndex: "amount",
-    align: "center",
-  },
-  {
-    title: "Category",
-    dataIndex: "categoryId",
-    render: (categoryId, transaction) => {
-      const category = categories?.find(
-        (category) => category?.id === categoryId
-      );
-      if (transaction?.type === TRANSACTION_TYPES.INCOME) {
-        TRANSACTION_TYPES.INCOME;
-      } else if (category?.name) {
-        return category?.name;
-      } else {
-        return "---";
-      }
+const getColumns = (categories) => {
+  return [
+    {
+      title: "Type",
+      dataIndex: "type",
+      filters: Object.values(TRANSACTION_TYPES)?.map((transactionType) => ({
+        text: transactionType,
+        value: transactionType,
+      })),
+      onFilter: (value, record) => record?.type === value,
     },
-  },
-  {
-    title: "Description",
-    dataIndex: "description",
-  },
-  {
-    title: "Date",
-    dataIndex: "date",
-    render: (value) => formatDate(new Date(value)),
-  },
-  {
-    title: "Actions",
-    dataIndex: "actions",
-    render: (_, transaction) => (
-      <TransactionActions transaction={transaction} />
-    ),
-  },
-];
+    {
+      title: "Amount",
+      dataIndex: "amount",
+      align: "center",
+    },
+    {
+      title: "Category",
+      dataIndex: "categoryId",
+      filters: categories?.map((category) => ({
+        text: category?.name,
+        value: category?.id,
+      })),
+      onFilter: (value, record) => record?.categoryId === value,
+      render: (categoryId, transaction) => {
+        const category = categories?.find(
+          (category) => category?.id === categoryId
+        );
+        if (transaction?.type === TRANSACTION_TYPES.INCOME) {
+          TRANSACTION_TYPES.INCOME;
+        } else if (category?.name) {
+          return category?.name;
+        } else {
+          return "---";
+        }
+      },
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+    },
+    {
+      title: "Date",
+      dataIndex: "date",
+      render: (value) => formatDate(new Date(value)),
+    },
+    {
+      title: "Actions",
+      dataIndex: "actions",
+      render: (_, transaction) => (
+        <TransactionActions transaction={transaction} />
+      ),
+    },
+  ];
+};
 
 const formatDate = (date) => {
   const options = {
