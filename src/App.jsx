@@ -6,6 +6,8 @@ import { NavigationModuleAtom } from "./atoms/navigationModule";
 import { Reports } from "./modules/Reports";
 import { Sync } from "./modules/Sync";
 
+import styles from "./App.module.scss";
+
 function App() {
   const navigationModule = useAtomValue(NavigationModuleAtom);
   const moduleComponentMapping = {
@@ -17,7 +19,9 @@ function App() {
   return (
     <>
       <Header />
-      <div className="module">{moduleComponentMapping[navigationModule]}</div>
+      <div className={styles.module}>
+        {moduleComponentMapping[navigationModule]}
+      </div>
     </>
   );
 }

@@ -1,6 +1,13 @@
+@use "src/scss/globals";
+
 .progressIndicatorInfo {
   display: flex;
   justify-content: space-between;
+  font-size: 0.8rem;
+
+  @media screen and (min-width: globals.$md) {
+    font-size: 1rem;
+  }
 
   .targetAndActionButtonsContainer {
     display: flex;

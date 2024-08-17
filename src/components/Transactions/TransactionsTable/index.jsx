@@ -1,13 +1,24 @@
 import React from "react";
-import { Table } from "antd";
+import { Grid, Table } from "antd";
 import { useAtomValue } from "jotai";
 import { sortedAndFilteredTransactionsAtom } from "@/atoms/transactions";
 import { categoriesAtom } from "@/atoms/categories";
 import { TRANSACTION_TYPES } from "@/utils/constants";
 import { TransactionActions } from "./TransactionActions";
 
+import styles from "./index.module.scss";
+import TransactionDetails from "./TransactionDetails";
+
+const { useBreakpoint } = Grid;
+
 const getColumns = (categories) => {
   return [
+    {
+      title: "Transaction Details",
+      render: (transaction) => {
+        return <TransactionDetails transaction={transaction} />;
+      },
+    },
     {
       title: "Type",
       dataIndex: "type",
@@ -16,11 +27,13 @@ const getColumns = (categories) => {
         value: transactionType,
       })),
       onFilter: (value, record) => record?.type === value,
+      responsive: ["md"],
     },
     {
       title: "Amount",
       dataIndex: "amount",
       align: "center",
+      responsive: ["md"],
     },
     {
       title: "Category",
@@ -29,6 +42,7 @@ const getColumns = (categories) => {
         text: category?.name,
         value: category?.id,
       })),
+      responsive: ["md"],
       onFilter: (value, record) => record?.categoryId === value,
       render: (categoryId, transaction) => {
         const category = categories?.find(
@@ -46,11 +60,13 @@ const getColumns = (categories) => {
     {
       title: "Description",
       dataIndex: "description",
+      responsive: ["md"],
     },
     {
       title: "Date",
       dataIndex: "date",
       render: (value) => formatDate(new Date(value)),
+      responsive: ["md"],
     },
     {
       title: "Actions",
@@ -58,6 +74,7 @@ const getColumns = (categories) => {
       render: (_, transaction) => (
         <TransactionActions transaction={transaction} />
       ),
+      responsive: ["md"],
     },
   ];
 };
@@ -78,13 +95,17 @@ const formatDate = (date) => {
 export const TransactionsTable = () => {
   const transactions = useAtomValue(sortedAndFilteredTransactionsAtom);
   const categories = useAtomValue(categoriesAtom);
+  const { md } = useBreakpoint();
 
   return (
     <Table
+      showHeader={md}
       dataSource={transactions}
       columns={getColumns(categories)}
       rowKey="id"
       bordered
+      className={styles.transactionsTable}
+      pagination={md}
     />
   );
 };

@@ -1,7 +1,13 @@
+@use "src/scss/globals";
+
 .transactions {
   height: 100%;
 
   > :global(.sectionHeading) {
     margin-bottom: 0.8rem;
+    flex-direction: column;
+    @media screen and (min-width: globals.$md) {
+      flex-direction: row;
+    }
   }
 }
