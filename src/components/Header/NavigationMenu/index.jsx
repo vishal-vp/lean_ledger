@@ -15,7 +15,6 @@ export const NavigationMenu = () => {
       selectedKeys={[navigationModule]}
       onClick={(event) => setNavigationModule(event.key)}
       items={Object.values(NAVIGATION_MODULES)}
-      disabledOverflow
     />
   );
 };
