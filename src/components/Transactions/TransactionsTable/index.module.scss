@@ -1,4 +1,10 @@
+@use "src/scss/globals";
+
 .transactionsTable {
+  @media screen and (min-width: globals.$md) {
+    overflow: auto;
+    height: 100%;
+  }
   overflow: scroll;
   height: 80%;
 }

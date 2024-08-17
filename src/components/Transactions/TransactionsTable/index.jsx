@@ -2,22 +2,27 @@ import React from "react";
 import { Grid, Table } from "antd";
 import { useAtomValue } from "jotai";
 import { sortedAndFilteredTransactionsAtom } from "@/atoms/transactions";
-import { categoriesAtom } from "@/atoms/categories";
 import { TRANSACTION_TYPES } from "@/utils/constants";
 import { TransactionActions } from "./TransactionActions";
 
 import styles from "./index.module.scss";
 import TransactionDetails from "./TransactionDetails";
+import { categoriesAtom } from "@/atoms/categories";
+import { TransactionCategory } from "./TransactionCategory";
+import { formatTransactionDate } from "@/utils/utils";
 
 const { useBreakpoint } = Grid;
 
 const getColumns = (categories) => {
+  const { md } = useBreakpoint();
+
   return [
     {
       title: "Transaction Details",
       render: (transaction) => {
         return <TransactionDetails transaction={transaction} />;
       },
+      hidden: md,
     },
     {
       title: "Type",
@@ -37,25 +42,15 @@ const getColumns = (categories) => {
     },
     {
       title: "Category",
-      dataIndex: "categoryId",
       filters: categories?.map((category) => ({
         text: category?.name,
         value: category?.id,
       })),
       responsive: ["md"],
       onFilter: (value, record) => record?.categoryId === value,
-      render: (categoryId, transaction) => {
-        const category = categories?.find(
-          (category) => category?.id === categoryId
-        );
-        if (transaction?.type === TRANSACTION_TYPES.INCOME) {
-          TRANSACTION_TYPES.INCOME;
-        } else if (category?.name) {
-          return category?.name;
-        } else {
-          return "---";
-        }
-      },
+      render: (transaction) => (
+        <TransactionCategory transaction={transaction} />
+      ),
     },
     {
       title: "Description",
@@ -65,7 +60,7 @@ const getColumns = (categories) => {
     {
       title: "Date",
       dataIndex: "date",
-      render: (value) => formatDate(new Date(value)),
+      render: (value) => formatTransactionDate(new Date(value)),
       responsive: ["md"],
     },
     {
@@ -77,19 +72,6 @@ const getColumns = (categories) => {
       responsive: ["md"],
     },
   ];
-};
-
-const formatDate = (date) => {
-  const options = {
-    year: "numeric",
-    month: "short",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  };
-
-  return new Intl.DateTimeFormat("en-US", options).format(date);
 };
 
 export const TransactionsTable = () => {
