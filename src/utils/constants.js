@@ -23,8 +23,8 @@ export const ATOM_PERISISTENCE_KEYS = {
 
 export const NAVIGATION_MODULES = {
   DASHBOARD: {
-    key: "DASHBOARD",
-    label: "Dashboard",
+    key: "HOME",
+    label: "Home",
   },
   REPORTS: {
     key: "REPORTS",

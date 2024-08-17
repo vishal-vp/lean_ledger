@@ -1,4 +1,5 @@
 .navigationMenu {
   margin-left: 1.2rem;
-  flex-grow: 2;
+  min-width: 0;
+  flex: auto;
 }
